@@ -53,7 +53,7 @@ userRouter.post("/login", async (req, res, next) => {
         });
         return res.json({
           status: true,
-          message: "Isued token successfully",
+          message: "Issued token successfully",
           token,
         });
       });

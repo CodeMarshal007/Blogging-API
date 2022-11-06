@@ -1,9 +1,10 @@
 const userModel = require("../model/userModel");
 const Article = require("../model/blogModel");
+const filter = require("../middleware/util");
 
 // Create a new article
-function createAarticle(req, res) {
-  return new Promise(async (resolve, reject) => {
+async function createAarticle(req, res, next) {
+  try {
     const user = req.user;
     const body = req.body;
     const foundUser = await userModel.findById(user._id);
@@ -22,20 +23,65 @@ function createAarticle(req, res) {
 
     foundUser.posts = foundUser.posts.concat(article._id);
     await foundUser.save();
-    resolve(article);
-  });
+    res.status(200).json({
+      status: true,
+      message: "successfully created an article",
+      article,
+    });
+  } catch (error) {
+    return next(error);
+  }
 }
+
 // get all published blogs
-function findAllArticles(req, res) {
-  return new Promise(async (resolve, reject) => {
-    const articles = await Article.find({ state: "published" });
-    resolve(articles);
-  });
+async function findAllArticles(req, res, next) {
+  try {
+    // paginations
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+    const limit = req.query.perPage ? parseInt(req.query.perPage) : 20;
+    const startIndex = (page - 1) * limit;
+
+    // Sort ||orderable
+    const sort = {};
+    if (req.query.sortBy && req.query.OrderBy) {
+      sort[req.query.sortBy] =
+        req.query.OrderBy.toLowerCase() === "desc" ? -1 : 1;
+    } else if (req.query.OrderBy === undefined) {
+      sort[req.query.sortBy] = req.query.OrderBy = 1;
+    } else {
+      sort.createdAt = -1;
+    }
+
+    // Search
+    const search = req.query.search
+      ? {
+          $or: [
+            { author: { $regex: req.query.search } },
+            { title: { $regex: req.query.search } },
+            { tags: { $regex: req.query.search } },
+          ],
+        }
+      : { state: "published" };
+
+    const articles = await Article.find({ state: "published" })
+      .find(search)
+      .limit(limit)
+      .sort(sort)
+      .skip(startIndex);
+
+    res.status(200).json({
+      status: true,
+      message: "successfully loaded all published articles",
+      articles: articles,
+    });
+  } catch (error) {
+    return next(error);
+  }
 }
 
 // Get a published article by Id
-function findAPublishArticleById(req, res) {
-  return new Promise(async (resolve, reject) => {
+async function findAPublishArticleById(req, res, next) {
+  try {
     const { articleId } = req.params;
     const article = await Article.findById(articleId).populate("postedBy", {
       first_name: 1,
@@ -44,31 +90,35 @@ function findAPublishArticleById(req, res) {
       phone_number: 1,
     });
     if (!article) {
-      reject(res.status(404).json({ status: false, article: null }));
+      return res.status(404).json({ status: false, article: null });
     }
 
     if (article.state === "draft") {
-      reject(
-        res.status(401).json({
-          status: false,
-          message:
-            "Unauthorized. You tried to get a draft article, login to see your draft article",
-        })
-      );
+      return res.status(401).json({
+        status: false,
+        message:
+          "Unauthorized. You tried to get a draft article, login to see your draft article",
+      });
     }
 
     // Increase the read count
     article.read_count += 1;
     article.save();
-    resolve(article);
-  });
+
+    res.status(200).json({
+      status: true,
+      message: "successfully sent an articles",
+      article,
+    });
+  } catch (error) {
+    next(error);
+  }
 }
 
 // List of user's articles
-function myAarticles(req, res) {
-  return new Promise(async (resolve, reject) => {
+async function myAarticles(req, res, next) {
+  try {
     const reqUserId = req.user._id;
-    console.log(reqUserId);
 
     const foundUser = await userModel.findById(reqUserId).populate("posts", {
       title: 1,
@@ -80,13 +130,21 @@ function myAarticles(req, res) {
     });
 
     const articles = foundUser.posts;
-    resolve(articles);
-  });
+
+    const filteredArticles = await filter(req, articles);
+    res.status(200).json({
+      status: true,
+      message: "successfully loaded all your article(s)",
+      filteredArticles,
+    });
+  } catch (error) {
+    next(error);
+  }
 }
 
 // Login users can get their OWN draft and published article by id
-function findAnArticleById(req, res) {
-  return new Promise(async (resolve, reject) => {
+async function findAnArticleById(req, res, next) {
+  try {
     const { articleId } = req.params;
 
     const reqUser = req.user;
@@ -99,25 +157,21 @@ function findAnArticleById(req, res) {
       phone_number: 1,
     });
     if (!article) {
-      reject(
-        res
-          .status(404)
-          .json({ status: false, message: "article not found", article: null })
-      );
+      return res
+        .status(404)
+        .json({ status: false, message: "article not found", article: null });
     }
 
     const userId = JSON.stringify(foundUser._id);
     const postId = JSON.stringify(article.postedBy._id);
     // checking if the user is the owner of the article
     if (userId !== postId) {
-      reject(
-        res.status(401).json({
-          status: false,
-          message:
-            "Unauthorized, you tried to access an article that is not yours",
-          article: null,
-        })
-      );
+      return res.status(401).json({
+        status: false,
+        message:
+          "Unauthorized, you tried to access an article that is not yours",
+        article: null,
+      });
     }
 
     // Increase the read count if a user gets their own pulished article
@@ -125,13 +179,20 @@ function findAnArticleById(req, res) {
       article.read_count += 1;
       article.save();
     }
-    resolve(article);
-  });
+    res.status(200).json({
+      status: true,
+      message: "successfully sent an article",
+      article,
+    });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 }
 
 // Update an article by Id
-function updateAnArticleById(req, res) {
-  return new Promise(async (resolve, reject) => {
+async function updateAnArticleById(req, res, next) {
+  try {
     const { articleId } = req.params;
     const reqUser = req.user;
     const body = req.body;
@@ -139,29 +200,34 @@ function updateAnArticleById(req, res) {
     const foundUser = await userModel.findById(reqUser._id);
     const article = await Article.findById(articleId);
     if (!article) {
-      reject(res.status(404).json({ status: false, article: null }));
+      return res.status(404).json({ status: false, article: null });
     }
 
     const userId = JSON.stringify(foundUser._id);
     const postId = JSON.stringify(article.postedBy);
     // checking if the user is the owner of the article
     if (userId !== postId) {
-      reject(
-        res.status(401).json({
-          status: false,
-          message: "Unauthorized",
-        })
-      );
+      return res.status(401).json({
+        status: false,
+        message: "Unauthorized",
+      });
     }
 
     const updatedArticle = await article.updateOne(body);
-    resolve(updatedArticle);
-  });
+    res.status(200).json({
+      status: true,
+      message: "successfully updated an article",
+      updatedArticle,
+    });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 }
 
 // Delete an article by Id
-function deleteAnArticleById(req, res) {
-  return new Promise(async (resolve, reject) => {
+async function deleteAnArticleById(req, res, next) {
+  try {
     const { articleId } = req.params;
     const reqUser = req.user;
 
@@ -169,23 +235,19 @@ function deleteAnArticleById(req, res) {
     const article = await Article.findById({ _id: articleId });
 
     if (!article) {
-      reject(
-        res
-          .status(404)
-          .json({ status: false, message: "Article not found", article: null })
-      );
+      return res
+        .status(404)
+        .json({ status: false, message: "Article not found", article: null });
     }
 
     const userId = JSON.stringify(foundUser._id);
     const postId = JSON.stringify(article.postedBy);
     // checking if the user is the owner of the article
     if (userId !== postId) {
-      reject(
-        res.status(401).json({
-          status: false,
-          message: "Unauthorized",
-        })
-      );
+      return res.status(401).json({
+        status: false,
+        message: "Unauthorized, you are not the owner of this article",
+      });
     }
 
     const deletedArticle = await article.deleteOne({ _id: articleId });
@@ -199,8 +261,14 @@ function deleteAnArticleById(req, res) {
       posts.splice(index, 1);
     }
     await foundUser.save();
-    resolve(deletedArticle);
-  });
+    res.status(200).json({
+      status: true,
+      message: "successfully deleted an article",
+      deletedArticle,
+    });
+  } catch (error) {
+    next(error);
+  }
 }
 
 module.exports = {

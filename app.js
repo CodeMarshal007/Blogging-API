@@ -28,36 +28,10 @@ app.use(
 );
 
 // Get all Published blogs
-app.get("/", (req, res, next) => {
-  findAllArticles(req, res)
-    .then((articles) => {
-      res.status(200).json({
-        status: true,
-        message: "successfully sent all articles",
-        articles,
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-      next(error);
-    });
-});
+app.get("/", findAllArticles);
 
 // Get a published article by Id
-app.get("/:articleId", (req, res, next) => {
-  findAPublishArticleById(req, res)
-    .then((article) => {
-      res.status(200).json({
-        status: true,
-        message: "successfully sent an articles",
-        article,
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-      next(error);
-    });
-});
+app.get("/:articleId", findAPublishArticleById);
 
 // ERROR HANDLER
 app.get((error, req, res, next) => {
@@ -68,3 +42,5 @@ app.get((error, req, res, next) => {
 app.listen(PORT, (req, res) => {
   console.log(`server listening on port ${PORT}`);
 });
+
+module.export = app;
