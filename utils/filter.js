@@ -1,4 +1,3 @@
-const Article = require("../model/blogModel");
 function filter(req, articles) {
   const queries = req.query;
   const filteredArticles = articles.filter((article) => {

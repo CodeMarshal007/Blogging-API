@@ -1,6 +1,6 @@
 const userModel = require("../model/userModel");
 const Article = require("../model/blogModel");
-const filter = require("../middleware/util");
+const filter = require("../utils/filter");
 
 // Create a new article
 async function createAarticle(req, res, next) {
@@ -23,7 +23,7 @@ async function createAarticle(req, res, next) {
 
     foundUser.posts = foundUser.posts.concat(article._id);
     await foundUser.save();
-    res.status(200).json({
+    res.status(201).json({
       status: true,
       message: "successfully created an article",
       article,

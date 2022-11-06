@@ -1,6 +1,6 @@
 const express = require("express");
 const passport = require("passport");
-const connectToDatabase = require("./connectToDB/connctToDb");
+const { connectToDatabase } = require("./connectToDB/connctToDb");
 const userRouter = require("./route/userRoute");
 const blogRoute = require("./route/blogRoute");
 const {
