@@ -107,7 +107,7 @@ async function findAPublishArticleById(req, res, next) {
 
     res.status(200).json({
       status: true,
-      message: "successfully sent an articles",
+      message: "successfully loaded a published article by Id",
       article,
     });
   } catch (error) {
@@ -121,12 +121,17 @@ async function myAarticles(req, res, next) {
     const reqUserId = req.user._id;
 
     const foundUser = await userModel.findById(reqUserId).populate("posts", {
+      _id: 1,
       title: 1,
       description: 1,
+      author: 1,
       state: 1,
       read_count: 1,
+      reading_time: 1,
       tags: 1,
+      body: 1,
       createdAt: 1,
+      updatedAt: 1,
     });
 
     const articles = foundUser.posts;
@@ -194,6 +199,7 @@ async function findAnArticleById(req, res, next) {
 async function updateAnArticleById(req, res, next) {
   try {
     const { articleId } = req.params;
+
     const reqUser = req.user;
     const body = req.body;
 
@@ -214,6 +220,7 @@ async function updateAnArticleById(req, res, next) {
     }
 
     const updatedArticle = await article.updateOne(body);
+
     res.status(200).json({
       status: true,
       message: "successfully updated an article",
