@@ -35,7 +35,7 @@ userRouter.post("/login", async (req, res, next) => {
         return next(error);
       }
       if (!user) {
-        const error = new Error("User not found");
+        const error = new Error("User not found nw");
         return next(error);
       }
 

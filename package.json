@@ -2,11 +2,11 @@
   "name": "blog",
   "version": "1.0.0",
   "description": "",
+
   "main": "app.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production nodemon app.js",
-    "dev": "cross-env NODE_ENV=development nodemon app.js",
-    "test": "cross-env NODE_ENV=test jest --coverage --forceExit"
+    "test": "jest --coverage",
+    "dev": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
@@ -24,7 +24,6 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
     "jest": "^29.2.2",
     "supertest": "^6.3.1"
   }

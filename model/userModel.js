@@ -42,6 +42,19 @@ const UserSchema = new Schema(
 
 UserSchema.plugin(uniqueValidator, { message: "is already taken." }); //uniqueValidator plugin and returns friendly message
 
+// UserSchema.pre("save", async function (next) {
+//   const user = this;
+//   const hash = await bcrypt.hash(this.password, 10);
+//   this.password = hash;
+//   next();
+// });
+
+// UserSchema.methods.isValidPassword = async function (password) {
+//   const user = this;
+//   const compare = await bcrypt.compare(password, this.password);
+//   return compare;
+// };
+
 UserSchema.pre("save", async function () {
   if (this.isModified("password")) {
     this.password = await User.hash(this.password);
