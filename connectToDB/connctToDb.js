@@ -7,7 +7,7 @@ const MONGODB_URI = process.env.ATLAS_MONGODB_URI
 function connectToDatabase() {
   mongoose.connect(MONGODB_URI,{
     useNewUrlParser: true,
-    useUnifiedTopology:true
+
 
 
 
