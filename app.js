@@ -3,6 +3,7 @@ const passport = require("passport");
 const { connectToDatabase } = require("./connectToDB/connctToDb");
 const userRouter = require("./route/userRoute");
 const blogRoute = require("./route/blogRoute");
+require("express-async-errors");
 const {
   findAllArticles,
   findAPublishArticleById,
