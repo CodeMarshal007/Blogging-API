@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
-const {MONGODB_URI} = require("../config.js")
+//const {MONGODB_URI} = require("../config.js")
 
-
+const MONGODB_URI = process.env.ATLAS_MONGODB_URI
 // Function that handles connection to database
 function connectToDatabase() {
   mongoose.connect(MONGODB_URI,{
