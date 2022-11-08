@@ -17,7 +17,7 @@ const {
 blogRoute.post("/", createAarticle);
 
 /**
- * @api  {get}  /article
+ * @api  {get}  /article/myarticles
  * @apiName list of own articles
  * @apiPermission Private
  * @apiSuccess (200) {Object}

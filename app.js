@@ -1,16 +1,16 @@
 const express = require("express");
 const passport = require("passport");
-const { connectToDatabase } = require("./connectToDB/connctToDb");
+const connectToDatabase = require("./connectToDB/connctToDb");
 const userRouter = require("./route/userRoute");
 const blogRoute = require("./route/blogRoute");
+const config = require("./config");
 const {
   findAllArticles,
   findAPublishArticleById,
 } = require("./controller/articleController");
 require("./auth/auth");
-require("dotenv").config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = config.PORT || 3000;
 
 const app = express();
 connectToDatabase();
@@ -43,4 +43,4 @@ app.listen(PORT, (req, res) => {
   console.log(`server listening on port ${PORT}`);
 });
 
-module.export = app;
+module.exports = app;

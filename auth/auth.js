@@ -74,7 +74,6 @@ passport.use(
             message: "Wrong Password, try forget password",
           });
         }
-        console.log(user);
 
         return done(null, user, { message: "Logged in Successfully" });
       } catch (error) {
