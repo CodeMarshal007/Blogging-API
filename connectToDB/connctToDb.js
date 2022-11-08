@@ -5,7 +5,16 @@ const {MONGODB_URI} = require("../config.js")
 
 // Function that handles connection to database
 function connectToDatabase() {
-  mongoose.connect(MONGODB_URI);
+  mongoose.connect(MONGODB_URI,{
+    useNewUrlParser: true,
+    useUnifiedTopology:true,
+
+
+
+            useCreateIndex: true
+
+        }
+    );
 
   mongoose.connection.on("connected", () => {
     console.log("Connected to MongoDB Successfully");
