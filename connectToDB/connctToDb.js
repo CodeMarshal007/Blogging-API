@@ -1,13 +1,23 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
-const { MONGODB_URI } = require("../config");
+//const {MONGODB_URI} = require("../config.js")
 
+const MONGODB_URI = process.env.ATLAS_MONGODB_URI
 // Function that handles connection to database
 function connectToDatabase() {
-  mongoose.connect(MONGODB_URI);
+  mongoose.connect(MONGODB_URI,{
+    useNewUrlParser: true,
+
+
+
+
+
+
+        }
+    );
 
   mongoose.connection.on("connected", () => {
-    console.log("Connected to MongoDB Atlas Successfully");
+    console.log("Connected to MongoDB Successfully");
   });
 
   mongoose.connection.on("error", (err) => {
@@ -16,4 +26,6 @@ function connectToDatabase() {
   });
 }
 
-module.exports = { connectToDatabase };
+
+
+module.exports = { connectToDatabase};
