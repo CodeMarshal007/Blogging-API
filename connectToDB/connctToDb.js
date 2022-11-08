@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
-const {MONGODB_URI} = require("../config.js)
+const {MONGODB_URI} = require("../config.js")
 
 
 // Function that handles connection to database
