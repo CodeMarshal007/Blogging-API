@@ -268,7 +268,7 @@ async function deleteAnArticleById(req, res, next) {
       posts.splice(index, 1);
     }
     await foundUser.save();
-    res.status(200).json({
+    res.status(204).json({
       status: true,
       message: "successfully deleted an article",
       deletedArticle,

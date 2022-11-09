@@ -1,8 +1,35 @@
 # Blogging App
-This is an api for a blog app
+This is an api for a blog app built with | Nodejs + Express + Mongodb
 
+> C.R.U.D, Paginate, Filter, Sort and Search API
 ---
+## Table of contents
 
+- [Blogging App](#blogging-app)
+  - [> C.R.U.D, Paginate, Filter, Sort and Search API](#-crud-paginate-filter-sort-and-search-api)
+  - [Table of contents](#table-of-contents)
+  - [Requirements](#requirements)
+  - [19. Test application](#19-test-application)
+  - [Setup](#setup)
+  - [Base URL](#base-url)
+  - [## Models](#-models)
+    - [User](#user)
+    - [Blog](#blog)
+  - [## APIs](#-apis)
+    - [Signup User](#signup-user)
+    - [Login User](#login-user)
+    - [Add New Article](#add-new-article)
+    - [List of Own Articles](#list-of-own-articles)
+      - [example ( Filter by state )](#example--filter-by-state-)
+    - [Update an Article By Id](#update-an-article-by-id)
+    - [Get Own Article By Id](#get-own-article-by-id)
+    - [Get All Published Articles](#get-all-published-articles)
+      - [example ( Pagination, Search and Orderable)](#example--pagination-search-and-orderable)
+    - [Get a Published Article By Id](#get-a-published-article-by-id)
+    - [Delete Own Article By Id](#delete-own-article-by-id)
+  - [Contributor](#contributor)
+  
+---
 ## Requirements
 1. Users should have a first_name, last_name, email, password, (you can add other
 attributes you want to store about the user)
@@ -208,7 +235,16 @@ Success
       }
 }
 ```
+#### example ( Filter by state )
+```http
+  GET https://perfect-crab-girdle.cyclic.app/?state=published
+  GET https://perfect-crab-girdle.cyclic.app/?state=draft
 
+  GET http://localhost:3000/article/myarticles?state=published
+  GET http://localhost:3000/article/myarticles?state=draft
+
+
+```
 ---
 ### Update an Article By Id
 - Route: /article/someRandom16DigitBlogId
@@ -299,6 +335,26 @@ Success
       }
 }
 ```
+#### example ( Pagination, Search and Orderable)
+```http
+-Pagination: defaulted to 20 blogs per page if "perPage" is not specified
+  GET http://localhost:3000/?page=1&perPage=2 
+  GET https://perfect-crab-girdle.cyclic.app/?page=1&perPage=2
+
+-search: can be search by author, title and tags (by author is used in the example below)
+  GET http://localhost:3000/?search=ade
+  GET https://perfect-crab-girdle.cyclic.app/?search=ade
+
+-Sort ||orderable: can be sort by read_count, reading_time and timestamp. If "OrderBy" is not provided, it is ordered in ascending order
+  GET http://localhost:3000?sortBy=read_count&OrderBy=desc
+  GET https://perfect-crab-girdle.cyclic.app/?sortBy=read_count&OrderBy=desc
+
+-Full 
+ GET http://localhost:3000?page=1&perPage=2&search=ade&sortBy=read_count&OrderBy=desc
+
+GET https://perfect-crab-girdle.cyclic.app/?page=1&perPage=2&search=ade&sortBy=read_count&OrderBy=desc
+```
+
 ### Get a Published Article By Id
 - Route: /someRandom16DigitBlogId
 - Method: GET

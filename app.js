@@ -1,6 +1,9 @@
 const express = require("express");
 const passport = require("passport");
-const { connectToDatabase } = require("./connectToDB/connctToDb");
+const {
+  connectToDatabase,
+  connectToLocalDatabase,
+} = require("./connectToDB/connctToDb");
 const userRouter = require("./route/userRoute");
 const blogRoute = require("./route/blogRoute");
 require("express-async-errors");
@@ -14,7 +17,8 @@ require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 
 const app = express();
-connectToDatabase();
+// connectToDatabase();
+connectToLocalDatabase(); //comment this out after testing
 
 // MIDDLEWARES
 app.use(express.json());
@@ -44,4 +48,4 @@ app.listen(PORT, (req, res) => {
   console.log(`server listening on port ${PORT}`);
 });
 
-module.export = app;
+module.exports = app;
