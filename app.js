@@ -17,8 +17,8 @@ require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 
 const app = express();
-// connectToDatabase();
-connectToLocalDatabase(); //comment this out after testing
+connectToDatabase();
+// connectToLocalDatabase(); //comment this out after testing
 
 // MIDDLEWARES
 app.use(express.json());
