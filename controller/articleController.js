@@ -74,6 +74,9 @@ async function findAllArticles(req, res, next) {
       message: "successfully loaded all published articles",
       articles: articles,
     });
+
+    // res.status(200);
+    // res.render("index", { articles });
   } catch (error) {
     return next(error);
   }
@@ -110,6 +113,9 @@ async function findAPublishArticleById(req, res, next) {
       message: "successfully loaded a published article by Id",
       article,
     });
+
+    // res.status(200);
+    // res.render("publishedById", { article });
   } catch (error) {
     next(error);
   }
@@ -262,13 +268,13 @@ async function deleteAnArticleById(req, res, next) {
     // Remove the article's Id from the user list of posts
     let posts = foundUser.posts;
     const index = posts.indexOf(articleId);
-    console.log(index);
+
     // Only romeve id when it's index is found
     if (index > -1) {
       posts.splice(index, 1);
     }
     await foundUser.save();
-    res.status(204).json({
+    res.status(200).json({
       status: true,
       message: "successfully deleted an article",
       deletedArticle,

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="../css/index.css" /> -->
+    <style>
+      body {
+        background-color: blueviolet;
+        color: aliceblue;
+      }
+
+      footer {
+        position: fixed;
+        bottom: 0px;
+      }
+      div ul {
+        background-color: darkgreen;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 1rem;
+      }
+      form {
+        width: 30%;
+        height: 50%;
+        border: solid white 2px;
+        padding: 2px;
+      }
+
+      form input,
+      textarea {
+        width: 90%;
+        height: 10%;
+      }
+
+      textarea {
+        height: 30%;
+      }
+
+      form button {
+        width: 95%;
+        margin: 3px;
+      }
+      button,
+      a {
+        text-decoration: none;
+        color: antiquewhite;
+      }
+
+      button {
+        background-color: darkgreen;
+        padding: 5px;
+        width: 10%;
+        border-radius: 10px;
+      }
+      #post {
+        border: 5px solid red;
+      }
+      ul {
+        list-style-type: none;
+      }
+      li {
+        margin: 3px;
+      }
+      footer {
+        background-color: rgb(25, 117, 25);
+        width: 100%;
+        padding: 1rem;
+      }
+    </style>
+    <title>Blog API</title>
+  </head>
+  <body>
+    <div>
+      <nav>
+        <ul>
+          <i>
+            <a href="/">Home Page</a>
+          </i>
+          <i>
+            <a href="/blog/new">New Post</a>
+          </i>
+          <i>
+            <a href="/user/signup">signup</a>
+          </i>
+          <i>
+            <a href="/user/login">Login</a>
+          </i>
+        </ul>
+      </nav>
+    </div>
+  </body>
+</html>

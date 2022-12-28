@@ -4,8 +4,9 @@ const {
   connectToDatabase,
   connectToLocalDatabase,
 } = require("./connectToDB/connctToDb");
-const userRouter = require("./route/userRoute");
+const userAuthRoute = require("./route/userAuthRoute");
 const blogRoute = require("./route/blogRoute");
+const userRoute = require("./route/userRoute");
 require("express-async-errors");
 const {
   findAllArticles,
@@ -17,31 +18,42 @@ require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 
 const app = express();
-connectToDatabase();
-// connectToLocalDatabase(); //comment this out after testing
+// connectToDatabase();
+connectToLocalDatabase(); //comment this out after testing
 
 // MIDDLEWARES
+
+// Ejs
+app.set("view engine", "ejs");
+app.set("views", "views");
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //ROUTES
-app.use("/user", userRouter);
+app.use("/app/auth", userAuthRoute);
 app.use(
-  "/article",
+  "/app/user",
+  passport.authenticate("jwt", { session: false }),
+  userRoute
+);
+app.use(
+  "/app/article",
   passport.authenticate("jwt", { session: false }),
   blogRoute
 );
 
 // Get all Published blogs
-app.get("/", findAllArticles);
+app.get("/app", findAllArticles);
 
 // Get a published article by Id
-app.get("/:articleId", findAPublishArticleById);
+app.get("/app/:articleId", findAPublishArticleById);
 
 // ERROR HANDLER
-app.get((error, req, res, next) => {
+app.use((error, req, res, next) => {
   console.log(error.message);
-  res.status(401).json({ message: "Something broke" });
+
+  res.status(401).json({ message: error.message });
 });
 
 app.listen(PORT, (req, res) => {

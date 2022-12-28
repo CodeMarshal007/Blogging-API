@@ -9,7 +9,7 @@ const {
 } = require("../controller/articleController");
 
 /**
- * @api  {Post}  /article
+ * @api  {Post}  /app/article
  * @apiName add new article
  * @apiPermission Private
  * @apiSuccess (201) {Object}
@@ -17,7 +17,7 @@ const {
 blogRoute.post("/", createAarticle);
 
 /**
- * @api  {get}  /article
+ * @api  {get}  /app/article/myarticles
  * @apiName list of own articles
  * @apiPermission Private
  * @apiSuccess (200) {Object}
@@ -25,7 +25,7 @@ blogRoute.post("/", createAarticle);
 blogRoute.get("/myarticles", myAarticles);
 
 /**
- * @api  {get}  /article/articleId
+ * @api  {get}  /app/article/:articleId
  * @apiName get own article by Id
  * @apiPermission Private
  * @apiSuccess (200) {Object}
@@ -33,7 +33,7 @@ blogRoute.get("/myarticles", myAarticles);
 blogRoute.get("/:articleId", findAnArticleById);
 
 /**
- * @api  {patch}  /article/articleId
+ * @api  {patch}  /app/article/:articleId
  * @apiName Update an article by Id
  * @apiPermission Private
  * @apiSuccess (200) {Object}
@@ -41,7 +41,7 @@ blogRoute.get("/:articleId", findAnArticleById);
 blogRoute.patch("/:articleId", updateAnArticleById);
 
 /**
- * @api  {delete}  /article/articleId
+ * @api  {delete}  /app/article/:articleId
  * @apiName delete an article by Id
  * @apiPermission Private
  * @apiSuccess (200) {Object}

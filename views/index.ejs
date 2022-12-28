@@ -1,0 +1,25 @@
+<%- include('./partials/header') %>
+
+<h1>Welcome to my Blog</h1>
+<h2>All articles</h2>
+<% for(let i = 0; i < articles.length; i++){%>
+<ul>
+  <div id="post">
+    <li>Title: <%= articles[i].title %></li>
+    <li>Descrption: <%=articles[i].description %></li>
+    <li>Author: <%=articles[i].author %></li>
+    <li>State: <%=articles[i].state %></li>
+    <li>Read Count: <%=articles[i].read_count %></li>
+    <li>Read Time: <%=articles[i].reading_time %></li>
+    <li>Tags: <%=articles[i].tags %></li>
+    <li>
+      <p>Body:</p>
+      <%=articles[i].body %>
+    </li>
+    <li>Reading Time: <%=articles[i].reading_time %></li>
+    <li>Posted By: <%=articles[i].postedBy %></li>
+    <li>Created At: <%=articles[i].createdAt %></li>
+    <li>Updated AT: <%=articles[i].updatedAt %></li>
+  </div>
+</ul>
+<%} %> <%- include('./partials/footer') %>

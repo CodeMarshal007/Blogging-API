@@ -1,0 +1,64 @@
+<%- include('./partials/header') %>
+
+<p>Enter the new article in the form below</p>
+
+<form action="/blog/new" method="POST">
+  <label for="title">Title</label><br />
+  <input
+    type="text"
+    name="title"
+    value="<%= typeof title != 'undefined'? title : '' %>"
+    required
+  /><br /><br />
+
+  <label for="description">Description</label><br />
+  <input
+    type="text"
+    name="description"
+    value="<%= typeof description != 'undefined'? description : '' %>"
+  /><br /><br />
+
+  <label for="author">Author</label><br />
+  <input
+    type="text"
+    name="author"
+    value="<%= typeof author != 'undefined'? author : '' %>"
+    placeholder="John Doe"
+    required
+  /><br /><br />
+
+  <label for="state">choose a state</label><br />
+  <select name="state" id="">
+    <option value="draft">Draft</option>
+    <option value="published">published</option></select
+  ><br /><br />
+
+  <label for="tags">Tags</label><br />
+  <input
+    type="text"
+    name="tags"
+    value="<%= typeof tags != 'undefined'? tags : '' %>"
+  /><br /><br />
+
+  <label for="body">Body</label><br />
+  <textarea
+    name="body"
+    id=""
+    cols=""
+    rows="10"
+    required
+    placeholder="Enter your post here..."
+  ></textarea
+  ><br /><br />
+
+  <label for="userId">userId</label><br />
+  <input
+    type="text"
+    name="userId"
+    value="<%= typeof userId != 'undefined'? userId : '' %>"
+    required
+  /><br /><br />
+  <button type="submit">Add Book</button>
+</form>
+
+<%- include('./partials/footer') %>
