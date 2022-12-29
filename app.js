@@ -4,7 +4,10 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const logger = require("./logger/logger");
 const httpLogger = require("./logger/httpLogger");
-const { connectToDatabase } = require("./connectToDB/connctToDb");
+const {
+  connectToDatabase,
+  connectToLocalDatabase,
+} = require("./connectToDB/connctToDb");
 const userAuthRoute = require("./route/userAuthRoute");
 const blogRoute = require("./route/blogRoute");
 const userRoute = require("./route/userRoute");
@@ -20,6 +23,7 @@ const PORT = CONFIG.PORT || 4000;
 
 const app = express();
 connectToDatabase();
+// connectToLocalDatabase();
 
 // MIDDLEWARES
 
