@@ -7,6 +7,7 @@ const {
   findAnArticleById,
   myAarticles,
 } = require("../controller/articleController");
+const blogValidator = require("../validators/blog.validator");
 
 /**
  * @api  {Post}  /app/article
@@ -14,7 +15,7 @@ const {
  * @apiPermission Private
  * @apiSuccess (201) {Object}
  */
-blogRoute.post("/", createAarticle);
+blogRoute.post("/", blogValidator.AddBlogValidationMW, createAarticle);
 
 /**
  * @api  {get}  /app/article/myarticles
@@ -38,7 +39,11 @@ blogRoute.get("/:articleId", findAnArticleById);
  * @apiPermission Private
  * @apiSuccess (200) {Object}
  */
-blogRoute.patch("/:articleId", updateAnArticleById);
+blogRoute.patch(
+  "/:articleId",
+  blogValidator.UpdateBlogValidationMW,
+  updateAnArticleById
+);
 
 /**
  * @api  {delete}  /app/article/:articleId
