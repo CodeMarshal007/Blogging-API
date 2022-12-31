@@ -2,8 +2,8 @@ const express = require("express");
 const passport = require("passport");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-const logger = require("./logger/logger");
-const httpLogger = require("./logger/httpLogger");
+// const logger = require("./logger/logger");
+// const httpLogger = require("./logger/httpLogger");
 const {
   connectToDatabase,
   connectToLocalDatabase,
@@ -30,8 +30,6 @@ connectToDatabase();
 // Ejs
 app.set("view engine", "ejs");
 app.set("views", "views");
-
-app.use(httpLogger);
 
 // Body parser
 app.use(express.json());
@@ -70,14 +68,14 @@ app.get("/app/:articleId", findAPublishArticleById);
 
 // ERROR HANDLER
 app.use((error, req, res, next) => {
-  logger.error(error.message);
+  // logger.error(error.message);
   const errorStatus = error.status || 500;
 
   res.status(errorStatus).json({ message: error.message });
 });
 
 app.listen(PORT, (req, res) => {
-  logger.info(`server listening on port ${PORT}`);
+  // logger.info(`server listening on port ${PORT}`);
 });
 
 module.exports = app;

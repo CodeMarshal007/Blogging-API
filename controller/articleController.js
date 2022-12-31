@@ -1,12 +1,12 @@
 const userModel = require("../model/userModel");
 const Article = require("../model/blogModel");
 const filter = require("../utils/filter");
-const logger = require("../logger/logger");
+// const logger = require("../logger/logger");
 
 // Create a new article
 async function createAarticle(req, res, next) {
   try {
-    logger.info(`The create blog route was requested`);
+    // logger.info(`The create blog route was requested`);
     const user = req.user;
     const body = req.body;
     const foundUser = await userModel.findById(user._id);
@@ -38,7 +38,7 @@ async function createAarticle(req, res, next) {
 // get all published blogs
 async function findAllArticles(req, res, next) {
   try {
-    logger.info(`The homepage/ get all published blog route was requested`);
+    // logger.info(`The homepage/ get all published blog route was requested`);
 
     // paginations
     const page = req.query.page ? parseInt(req.query.page) : 1;
@@ -89,7 +89,7 @@ async function findAllArticles(req, res, next) {
 // Get a published article by Id
 async function findAPublishArticleById(req, res, next) {
   try {
-    logger.info(`The get a published blog by id route was requested`);
+    // logger.info(`The get a published blog by id route was requested`);
     const { articleId } = req.params;
     const article = await Article.findById(articleId).populate("postedBy", {
       first_name: 1,
@@ -118,9 +118,6 @@ async function findAPublishArticleById(req, res, next) {
       message: "successfully loaded a published article by Id",
       article,
     });
-
-    // res.status(200);
-    // res.render("publishedById", { article });
   } catch (error) {
     next(error);
   }
@@ -129,7 +126,7 @@ async function findAPublishArticleById(req, res, next) {
 // List of user's articles
 async function myAarticles(req, res, next) {
   try {
-    logger.info(`The get users owned blog list route was requested`);
+    // logger.info(`The get users owned blog list route was requested`);
     const reqUserId = req.user._id;
 
     const foundUser = await userModel.findById(reqUserId).populate("posts", {
@@ -162,9 +159,9 @@ async function myAarticles(req, res, next) {
 // Login users can get their OWN draft and published article by id
 async function findAnArticleById(req, res, next) {
   try {
-    logger.info(
-      `The get owned blog (published or draft) by id route was requested`
-    );
+    // logger.info(
+    //   `The get owned blog (published or draft) by id route was requested`
+    // );
     const { articleId } = req.params;
 
     const reqUser = req.user;
@@ -213,7 +210,7 @@ async function findAnArticleById(req, res, next) {
 // Update an article by Id
 async function updateAnArticleById(req, res, next) {
   try {
-    logger.info(`The update a blog by Id route was requested`);
+    // logger.info(`The update a blog by Id route was requested`);
     const { articleId } = req.params;
 
     const reqUser = req.user;
@@ -251,7 +248,7 @@ async function updateAnArticleById(req, res, next) {
 // Delete an article by Id
 async function deleteAnArticleById(req, res, next) {
   try {
-    logger.info(`The delete a blog by Id route was requested`);
+    // logger.info(`The delete a blog by Id route was requested`);
     const { articleId } = req.params;
     const reqUser = req.user;
 

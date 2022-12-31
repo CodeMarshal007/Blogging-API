@@ -11,7 +11,7 @@ userAuthRoute.post(
   "/signup",
   passport.authenticate("signup", { session: false }),
   async (req, res, next) => {
-    logger.info(`The sign up route was requested`);
+    // logger.info(`The sign up route was requested`);
     res.status(201).json({
       status: true,
       message: "Signup successful",
@@ -31,7 +31,7 @@ userAuthRoute.post(
 userAuthRoute.post("/login", async (req, res, next) => {
   passport.authenticate("login", async (error, user, info) => {
     try {
-      logger.info(`The login route was requested`);
+      // logger.info(`The login route was requested`);
       if (error) {
         const error = new Error("An error occurred while trying to login");
         return next(error);
