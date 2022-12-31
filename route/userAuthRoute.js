@@ -1,7 +1,7 @@
 const express = require("express");
 const userAuthRoute = express.Router();
 const passport = require("passport");
-const logger = require("../logger/logger");
+
 const jwt = require("jsonwebtoken");
 require("../auth/auth");
 require("dotenv").config();
@@ -11,7 +11,6 @@ userAuthRoute.post(
   "/signup",
   passport.authenticate("signup", { session: false }),
   async (req, res, next) => {
-    // logger.info(`The sign up route was requested`);
     res.status(201).json({
       status: true,
       message: "Signup successful",
@@ -31,7 +30,6 @@ userAuthRoute.post(
 userAuthRoute.post("/login", async (req, res, next) => {
   passport.authenticate("login", async (error, user, info) => {
     try {
-      // logger.info(`The login route was requested`);
       if (error) {
         const error = new Error("An error occurred while trying to login");
         return next(error);

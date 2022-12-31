@@ -2,13 +2,11 @@ const express = require("express");
 const userRoute = express.Router();
 const userModel = require("../model/userModel");
 const blogModel = require("../model/blogModel");
-// const logger = require("../logger/logger");
 
 // Update user details
 
 async function updateUserDetails(req, res, next) {
   try {
-    // logger.info(`The update a user details route was requested`);
     const body = req.body;
     const reqUser = req.user;
     //  since user must be logged in to access this route, there is no need passing user id params. just get it from the request user object
@@ -32,7 +30,6 @@ async function updateUserDetails(req, res, next) {
 // Delete a user
 async function deleteUser(req, res, next) {
   try {
-    // logger.info(`The delete a user account route was requested`);
     const reqUser = req.user;
     //  since user must be logged in to access this route, there is no need passing user id params. just get it from the request user object
     const foundUser = await userModel.findById(reqUser._id);

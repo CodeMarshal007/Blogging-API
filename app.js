@@ -2,8 +2,7 @@ const express = require("express");
 const passport = require("passport");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-// const logger = require("./logger/logger");
-// const httpLogger = require("./logger/httpLogger");
+
 const {
   connectToDatabase,
   connectToLocalDatabase,
@@ -68,14 +67,14 @@ app.get("/app/:articleId", findAPublishArticleById);
 
 // ERROR HANDLER
 app.use((error, req, res, next) => {
-  // logger.error(error.message);
+  console.log(error.message);
   const errorStatus = error.status || 500;
 
   res.status(errorStatus).json({ message: error.message });
 });
 
 app.listen(PORT, (req, res) => {
-  // logger.info(`server listening on port ${PORT}`);
+  console.log(`server listening on port ${PORT}`);
 });
 
 module.exports = app;
