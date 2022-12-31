@@ -6,16 +6,14 @@ This is an api for a blog app built with | Nodejs + Express + Mongodb
 ## Table of contents
 
 - [Blogging App](#blogging-app)
-  - [> C.R.U.D, Paginate, Filter, Sort and Search API](#-crud-paginate-filter-sort-and-search-api)
   - [Table of contents](#table-of-contents)
   - [Requirements](#requirements)
-  - [19. Test application](#19-test-application)
   - [Setup](#setup)
   - [Base URL](#base-url)
-  - [## Models](#-models)
+  - [Models](#models)
     - [User](#user)
     - [Blog](#blog)
-  - [## APIs](#-apis)
+  - [APIs](#apis)
     - [Signup User](#signup-user)
     - [Login User](#login-user)
     - [Add New Article](#add-new-article)
@@ -70,7 +68,7 @@ the blog. The read_count of the blog too should be updated by 1
 
 ---
 ## Base URL
-- https://perfect-crab-girdle.cyclic.app/
+- https://myblogging.cyclic.app
 - https://github.com/CodeMarshal007/Blogging-API
 
 

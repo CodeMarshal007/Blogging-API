@@ -3,7 +3,7 @@ const winston = require("winston");
 const options = {
   file: {
     level: "info",
-    filename: "./logger/logs/app.log",
+    filename: "./logs/app.log",
     handleExceptions: true,
     json: true,
     maxsize: 5242880, // 5MB
