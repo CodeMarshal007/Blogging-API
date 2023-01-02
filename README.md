@@ -68,7 +68,7 @@ the blog. The read_count of the blog too should be updated by 1
 
 ---
 ## Base URL
-- https://myblogging.cyclic.app
+
 - https://github.com/CodeMarshal007/Blogging-API
 
 
