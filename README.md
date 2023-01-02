@@ -68,7 +68,7 @@ the blog. The read_count of the blog too should be updated by 1
 
 ---
 ## Base URL
-
+https://fine-pinafore-bull.cyclic.app/app/
 - https://github.com/CodeMarshal007/Blogging-API
 
 
@@ -110,7 +110,7 @@ the blog. The read_count of the blog too should be updated by 1
 
 ### Signup User
 
-- Route: user/signup
+- Route: /app/auth/signup
 - Method: POST
 - Body: 
 ```
@@ -141,7 +141,7 @@ Success
 ---
 ### Login User
 
-- Route: user/login
+- Route: app/auth/login
 - Method: POST
 - Body: 
 ```
@@ -165,7 +165,7 @@ Success
 ---
 ### Add New Article
 
-- Route: /article
+- Route: app/article
 - Method: POST
 - Header
     - Authorization: Bearer tokensjlkafjkldsfjsd
@@ -206,7 +206,7 @@ Success
 ```
 ---
 ### List of Own Articles
-- Route: /article/myarticles
+- Route: app/article/myarticles
 - Method: GET
 - Header
     - Authorization: Bearer tokensjlkafjkldsfjsd
@@ -235,17 +235,17 @@ Success
 ```
 #### example ( Filter by state )
 ```http
-  GET https://perfect-crab-girdle.cyclic.app/?state=published
-  GET https://perfect-crab-girdle.cyclic.app/?state=draft
+  GET https://fine-pinafore-bull.cyclic.app/app/?state=published
+  GET https://fine-pinafore-bull.cyclic.app/app/?state=draft
 
-  GET http://localhost:3000/article/myarticles?state=published
-  GET http://localhost:3000/article/myarticles?state=draft
+  GET http://localhost:3000/app/article/myarticles?state=published
+  GET http://localhost:3000/app/article/myarticles?state=draft
 
 
 ```
 ---
 ### Update an Article By Id
-- Route: /article/someRandom16DigitBlogId
+- Route: app/article/someRandom16DigitBlogId
 - Method: PATCH
 - Header
     - Authorization: Bearer tokensjlkafjkldsfjsd
@@ -271,7 +271,7 @@ Success
 ```
 ---
 ### Get Own Article By Id
-- Route: /article/someRandom16DigitBlogId
+- Route: app/article/someRandom16DigitBlogId
 - Method: GET
 - Header
     - Authorization: Bearer tokensjlkafjkldsfjsd
@@ -306,7 +306,7 @@ Success
 ```
 ---
 ### Get All Published Articles
-- Route: /
+- Route: /app
 - Method: GET
 
 
@@ -336,25 +336,25 @@ Success
 #### example ( Pagination, Search and Orderable)
 ```http
 -Pagination: defaulted to 20 blogs per page if "perPage" is not specified
-  GET http://localhost:3000/?page=1&perPage=2 
-  GET https://perfect-crab-girdle.cyclic.app/?page=1&perPage=2
+  GET http://localhost:3000/app?page=1&perPage=2 
+  GET https://fine-pinafore-bull.cyclic.app/app?page=1&perPage=2
 
 -search: can be search by author, title and tags (by author is used in the example below)
-  GET http://localhost:3000/?search=ade
-  GET https://perfect-crab-girdle.cyclic.app/?search=ade
+  GET http://localhost:3000/app?search=ade
+  GET https://fine-pinafore-bull.cyclic.app/app?search=ade
 
 -Sort ||orderable: can be sort by read_count, reading_time and timestamp. If "OrderBy" is not provided, it is ordered in ascending order
   GET http://localhost:3000?sortBy=read_count&OrderBy=desc
-  GET https://perfect-crab-girdle.cyclic.app/?sortBy=read_count&OrderBy=desc
+  GET  https://fine-pinafore-bull.cyclic.app/app?sortBy=read_count&OrderBy=desc
 
 -Full 
  GET http://localhost:3000?page=1&perPage=2&search=ade&sortBy=read_count&OrderBy=desc
 
-GET https://perfect-crab-girdle.cyclic.app/?page=1&perPage=2&search=ade&sortBy=read_count&OrderBy=desc
+GET  https://fine-pinafore-bull.cyclic.app/app?page=1&perPage=2&search=ade&sortBy=read_count&OrderBy=desc
 ```
 
 ### Get a Published Article By Id
-- Route: /someRandom16DigitBlogId
+- Route: app/someRandom16DigitBlogId
 - Method: GET
 
 
@@ -383,7 +383,7 @@ Success
 ```
 ---
 ### Delete Own Article By Id
-- Route: /article/someRandom16DigitBlogId
+- Route: app/article/someRandom16DigitBlogId
 - Method: DELETE
 - Header
     - Authorization: Bearer tokensjlkafjkldsfjsd
