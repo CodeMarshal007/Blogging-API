@@ -1,5 +1,3 @@
-const express = require("express");
-const userRoute = express.Router();
 const userModel = require("../model/userModel");
 const blogModel = require("../model/blogModel");
 

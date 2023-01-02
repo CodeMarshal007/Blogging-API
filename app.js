@@ -22,7 +22,7 @@ const PORT = CONFIG.PORT || 4000;
 
 const app = express();
 connectToDatabase();
-// connectToLocalDatabase();S
+// connectToLocalDatabase();
 
 // MIDDLEWARES
 
